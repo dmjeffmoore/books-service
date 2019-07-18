@@ -1,5 +1,6 @@
 package com.dmjeffmoore.booksservice
 
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,11 +18,12 @@ class BooksControllerTests {
     @Autowired
     lateinit var mockMvc: MockMvc
 
-    @Test
-    fun `books returns books`() {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/books"))
-                .andExpect(status().isOk)
-                .andExpect(model().attributeExists("ISBN1"))
-                .andExpect(model().attributeExists("ISBN2"))
-    }
+//    @Test
+//    @Tag("integration")
+//    fun `books returns books`() {
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/books"))
+//                .andExpect(status().isOk)
+//                .andExpect(model().attributeExists("ISBN1"))
+//                .andExpect(model().attributeExists("ISBN2"))
+//    }
 }

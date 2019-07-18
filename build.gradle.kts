@@ -27,10 +27,11 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("mysql:mysql-connector-java:8.0.16")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "junit")
@@ -40,7 +41,9 @@ dependencies {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags("integration")
+    }
 }
 
 tasks.withType<KotlinCompile> {
