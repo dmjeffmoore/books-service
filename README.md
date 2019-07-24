@@ -1,7 +1,7 @@
 # books-service
 books-service performs CRUD operations on a repository of books.
 
-#### Environment Variables
+### Environment Variables
 |Variable|Description|
 |--------|-----------|
 |DB_USERNAME|Username to connect to the DB|
