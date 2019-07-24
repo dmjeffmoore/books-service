@@ -11,35 +11,27 @@ class BooksService(private val booksRepository: BooksRepository) {
     }
 
     fun checkoutBook(isbn: String): Boolean {
-        try {
-            val book = booksRepository.findOne(Example.of(Book(isbn = isbn)))
+        val book = booksRepository.findOne(Example.of(Book(isbn = isbn)))
 
-            if (!book.isEmpty) {
-                book.get().status = Status.CHECKED_OUT
-                booksRepository.save(book.get())
-                return true
-            }
-
-            return false
-        } catch (e: Exception) {
-            return false
+        if (!book.isEmpty) {
+            book.get().status = Status.CHECKED_OUT
+            booksRepository.save(book.get())
+            return true
         }
+
+        return false
     }
 
     fun returnBook(isbn: String): Boolean {
-        try {
-            val book = booksRepository.findOne(Example.of(Book(isbn = isbn)))
+        val book = booksRepository.findOne(Example.of(Book(isbn = isbn)))
 
-            if (!book.isEmpty) {
-                book.get().status = Status.ON_SHELF
-                booksRepository.save(book.get())
-                return true
-            }
-
-            return false
-        } catch (e: Exception) {
-            return false
+        if (!book.isEmpty) {
+            book.get().status = Status.ON_SHELF
+            booksRepository.save(book.get())
+            return true
         }
+
+        return false
     }
 
     fun addBook(book: BookDto): Boolean {
@@ -49,17 +41,13 @@ class BooksService(private val booksRepository: BooksRepository) {
     }
 
     fun removeBook(isbn: String): Boolean {
-        try {
-            val book = booksRepository.findOne(Example.of(Book(isbn = isbn)))
+        val book = booksRepository.findOne(Example.of(Book(isbn = isbn)))
 
-            if (!book.isEmpty) {
-                booksRepository.delete(book.get())
-                return true
-            }
-
-            return false
-        } catch (e: Exception) {
-            return false
+        if (!book.isEmpty) {
+            booksRepository.delete(book.get())
+            return true
         }
+
+        return false
     }
 }

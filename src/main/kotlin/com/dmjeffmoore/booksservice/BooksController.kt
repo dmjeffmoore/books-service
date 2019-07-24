@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
 @Controller
+@CrossOrigin
 @RequestMapping("/api/v1/")
 class BooksController(private val booksService: BooksService) {
 
@@ -16,6 +17,7 @@ class BooksController(private val booksService: BooksService) {
 
     @PutMapping("/books/{isbn}/checkout")
     fun checkoutBook(@PathVariable("isbn") isbn: String): ResponseEntity<Unit> {
+        println("checkout! $isbn")
         return if (booksService.checkoutBook(isbn)) {
             ResponseEntity.status(HttpStatus.OK).build()
         } else {
