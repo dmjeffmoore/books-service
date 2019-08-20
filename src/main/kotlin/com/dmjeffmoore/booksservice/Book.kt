@@ -4,7 +4,6 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.validation.constraints.NotBlank
 
 @Entity
 data class Book(
@@ -16,5 +15,6 @@ data class Book(
         val isbn: String? = null,
         val title: String? = null,
         val author: String? = null,
-        var status: Status? = null
+        var status: Status? = null,
+        var checkedOutBy: String? = null
 )
