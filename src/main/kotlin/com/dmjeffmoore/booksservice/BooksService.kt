@@ -10,11 +10,12 @@ class BooksService(private val booksRepository: BooksRepository) {
         return booksRepository.findAll()
     }
 
-    fun checkoutBook(isbn: String): Boolean {
+    fun checkoutBook(isbn: String, userEmail: String): Boolean {
         val book = booksRepository.findOne(Example.of(Book(isbn = isbn)))
 
         if (!book.isEmpty) {
             book.get().status = Status.CHECKED_OUT
+            book.get().checkedOutBy = userEmail;
             booksRepository.save(book.get())
             return true
         }
@@ -27,6 +28,7 @@ class BooksService(private val booksRepository: BooksRepository) {
 
         if (!book.isEmpty) {
             book.get().status = Status.ON_SHELF
+            book.get().checkedOutBy = ""
             booksRepository.save(book.get())
             return true
         }
@@ -49,5 +51,9 @@ class BooksService(private val booksRepository: BooksRepository) {
         }
 
         return false
+    }
+
+    fun getCheckedOutBooks(userEmail: String): List<Book> {
+        return booksRepository.findAll(Example.of(Book(checkedOutBy = userEmail)));
     }
 }
