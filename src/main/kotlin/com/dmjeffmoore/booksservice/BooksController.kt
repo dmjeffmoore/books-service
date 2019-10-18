@@ -50,9 +50,4 @@ class BooksController(private val booksService: BooksService) {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build()
         }
     }
-
-    @GetMapping("/v1/books/checked-out/{user-email}")
-    fun checkedOutBooks(@PathVariable("user-email") userEmail: String): ResponseEntity<List<Book>> {
-        return ResponseEntity.status(HttpStatus.OK).body(booksService.getCheckedOutBooks(userEmail))
-    }
 }

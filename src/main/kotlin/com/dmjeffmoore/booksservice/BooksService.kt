@@ -52,8 +52,4 @@ class BooksService(private val booksRepository: BooksRepository) {
 
         return false
     }
-
-    fun getCheckedOutBooks(userEmail: String): List<Book> {
-        return booksRepository.findAll(Example.of(Book(checkedOutBy = userEmail)));
-    }
 }
