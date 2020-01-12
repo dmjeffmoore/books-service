@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito
-import org.springframework.dao.IncorrectResultSizeDataAccessException
 import org.mockito.Mockito.`when` as mockitoWhen
 import java.util.*
 
@@ -22,7 +21,7 @@ class BooksServiceTests {
         fun `returns true after updating status to checked out`() {
             mockitoWhen(booksRepositoryMock.findOne<Book>(any())).thenReturn(Optional.of(Book(null, "isbn1", "title", "author", Status.ON_SHELF)))
 
-            val result = booksService.checkoutBook("isbn1")
+            val result = booksService.checkoutBook("isbn1", "test@email.com")
 
             assertTrue(result)
         }
@@ -31,16 +30,7 @@ class BooksServiceTests {
         fun `returns false if book is not found`() {
             mockitoWhen(booksRepositoryMock.findOne<Book>(any())).thenReturn(Optional.empty())
 
-            val result = booksService.checkoutBook("isbn1")
-
-            assertFalse(result)
-        }
-
-        @Test
-        fun `returns false if exception occurs`() {
-            mockitoWhen(booksRepositoryMock.findOne<Book>(any())).thenThrow(IncorrectResultSizeDataAccessException::class.java)
-
-            val result = booksService.checkoutBook("isbn1")
+            val result = booksService.checkoutBook("isbn1","test@email.com")
 
             assertFalse(result)
         }
@@ -61,15 +51,6 @@ class BooksServiceTests {
         @Test
         fun `returns false if book is not found`() {
             mockitoWhen(booksRepositoryMock.findOne<Book>(any())).thenReturn(Optional.empty())
-
-            val result = booksService.returnBook("isbn1")
-
-            assertFalse(result)
-        }
-
-        @Test
-        fun `returns false if exception occurs`() {
-            mockitoWhen(booksRepositoryMock.findOne<Book>(any())).thenThrow(IncorrectResultSizeDataAccessException::class.java)
 
             val result = booksService.returnBook("isbn1")
 
@@ -103,15 +84,6 @@ class BooksServiceTests {
         @Test
         fun `returns false if book is not found`() {
             mockitoWhen(booksRepositoryMock.findOne<Book>(any())).thenReturn(Optional.empty())
-
-            val result = booksService.removeBook("isbn1")
-
-            assertFalse(result)
-        }
-
-        @Test
-        fun `returns false if exception occurs`() {
-            mockitoWhen(booksRepositoryMock.findOne<Book>(any())).thenThrow(IncorrectResultSizeDataAccessException::class.java)
 
             val result = booksService.removeBook("isbn1")
 
